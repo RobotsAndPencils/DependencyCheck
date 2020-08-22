@@ -1,0 +1,24 @@
+name: "Dependency-Check"
+description: "Dependency-Check is a Software Composition Analysis (SCA) tool that attempts to detect publicly disclosed vulnerabilities contained within a project's dependencies."
+
+inputs:
+  path:
+    description: "Path"
+    required: false
+    default: "./"
+
+runs:
+  using: "docker"
+  image: "docker://owasp/dependency-check:latest"
+  args:
+    [
+      --scan,
+      "${{ inputs.path }}",
+      --enableExperimental,
+      --out,
+      "$GITHUB_WORKSPACE"
+    ]
+
+branding:
+  icon: "alert-triangle"
+  color: "orange"
